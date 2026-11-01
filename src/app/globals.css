@@ -1,0 +1,1084 @@
+@import 'tailwindcss';
+@import 'tw-animate-css';
+
+/* Geist Fonts (local, sem dependência de rede) */
+@font-face {
+  font-family: 'Geist';
+  src: url('/fonts/Geist-Variable.woff2') format('woff2');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Geist Mono';
+  src: url('/fonts/GeistMono-Variable.woff2') format('woff2');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@custom-variant dark (&:is(.dark *));
+
+:root {
+  --background: #000000;
+  --foreground: #e5e5e5;
+  --card: #0a0a0a;
+  --card-foreground: #e5e5e5;
+  --popover: #0a0a0a;
+  --popover-foreground: #e5e5e5;
+  --primary: #ffffff;
+  --primary-foreground: #000000;
+  --secondary: #111111;
+  --secondary-foreground: #e5e5e5;
+  --muted: #171717;
+  --muted-foreground: #737373;
+  --accent: #ffffff;
+  --accent-foreground: #000000;
+  --destructive: #ff4444;
+  --destructive-foreground: #ffffff;
+  --border: #1a1a1a;
+  --input: #1a1a1a;
+  --ring: #ffffff;
+  --chart-1: #ffffff;
+  --chart-2: #00cc6a;
+  --chart-3: #00994d;
+  --chart-4: #006633;
+  --chart-5: #004422;
+  --radius: 0.625rem;
+  
+  --sidebar: #050505;
+  --sidebar-foreground: #e5e5e5;
+  --sidebar-primary: #ffffff;
+  --sidebar-primary-foreground: #000000;
+  --sidebar-accent: #111111;
+  --sidebar-accent-foreground: #e5e5e5;
+  --sidebar-border: #1a1a1a;
+  --sidebar-ring: #ffffff;
+  
+  --neon-verde: #ffffff;
+  --neon-verde-suave: #00cc6a;
+  --neon-verde-escuro: #004422;
+
+  --bloom-opacity: 0.12;
+  --base-font-size: 16px;
+
+  --theme-bg-opacity: 0;
+}
+
+@theme inline {
+  --font-sans: 'Geist', 'Geist Fallback', sans-serif;
+  --font-mono: 'Geist Mono', 'Geist Mono Fallback', monospace;
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-neon: var(--neon-verde);
+  --color-neon-suave: var(--neon-verde-suave);
+  --color-neon-escuro: var(--neon-verde-escuro);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+/* Efeitos de Bloom/Glow */
+.bloom-verde {
+  position: fixed;
+  border-radius: 50%;
+  filter: blur(120px);
+  opacity: var(--bloom-opacity);
+  pointer-events: none;
+  background: radial-gradient(circle, var(--primary) 0%, transparent 70%);
+  transition: opacity 0.5s ease;
+}
+
+.bloom-1 {
+  width: 500px;
+  height: 500px;
+  top: -150px;
+  right: -150px;
+  animation: flutuar 12s ease-in-out infinite;
+}
+
+.bloom-2 {
+  width: 400px;
+  height: 400px;
+  bottom: 5%;
+  left: 15%;
+  animation: flutuar 16s ease-in-out infinite reverse;
+}
+
+.bloom-3 {
+  width: 350px;
+  height: 350px;
+  top: 45%;
+  right: 15%;
+  animation: flutuar 20s ease-in-out infinite;
+}
+
+.bloom-4 {
+  width: 300px;
+  height: 300px;
+  top: 15%;
+  left: 40%;
+  animation: flutuar 14s ease-in-out infinite;
+}
+
+.bloom-5 {
+  width: 250px;
+  height: 250px;
+  bottom: 25%;
+  right: 35%;
+  animation: flutuar 18s ease-in-out infinite reverse;
+}
+
+@keyframes flutuar {
+  0%, 100% {
+    transform: translate(0, 0) scale(1);
+  }
+  33% {
+    transform: translate(30px, -20px) scale(1.05);
+  }
+  66% {
+    transform: translate(-20px, 20px) scale(0.95);
+  }
+}
+
+@keyframes shimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+/* Glow em texto */
+.texto-neon {
+  text-shadow: 0 0 20px color-mix(in srgb, var(--primary) 25%, transparent),
+               0 0 40px color-mix(in srgb, var(--primary) 10%, transparent);
+}
+
+/* Borda com glow */
+.borda-neon {
+  box-shadow: 0 0 8px color-mix(in srgb, var(--primary) 15%, transparent),
+              0 0 20px color-mix(in srgb, var(--primary) 8%, transparent);
+}
+
+/* Scrollbar personalizada */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--scrollbar-track, #0a0a0a);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--scrollbar-thumb, #1a1a1a);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--scrollbar-thumb-hover, #2a2a2a);
+}
+
+/* Remover setas de input number */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+/* ═══ Estilos de Cards ═══ */
+
+/* Glass (glassmorphism) */
+:root[data-card-style="glass"] {
+  --card: rgba(255, 255, 255, 0.03);
+  --sidebar: rgba(5, 5, 5, 0.7);
+}
+[data-card-style="glass"] .rounded-xl[class*="bg-card"],
+[data-card-style="glass"] [class*="bg-card\/"] {
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-color: rgba(255, 255, 255, 0.06);
+}
+
+/* Bordered */
+[data-card-style="bordered"] .rounded-xl[class*="bg-card"],
+[data-card-style="bordered"] [class*="bg-card\/"] {
+  border-width: 1.5px;
+  border-color: color-mix(in srgb, var(--primary) 15%, var(--border));
+}
+
+/* Grade de fundo oculta */
+:root[data-show-grid="false"] .bloom-grade {
+  display: none;
+}
+
+/* ═══ Overlay decorativo do tema ═══ */
+.theme-bg-overlay {
+  background-image: var(--theme-bg-image, none);
+  background-repeat: var(--theme-bg-repeat, repeat);
+  background-size: var(--theme-bg-size, 200px);
+  background-position: center;
+  opacity: var(--theme-bg-opacity, 0);
+  transition: opacity 0.5s ease;
+  mask-image: var(--theme-bg-mask, none);
+  -webkit-mask-image: var(--theme-bg-mask, none);
+}
+
+/* ═══ Tema Manga — papel branco, tinta preta, painéis recortados ═══ */
+
+:root[data-theme="manga"] .theme-bg-overlay {
+  filter: invert(1);
+  animation: manga-drift 50s linear infinite;
+}
+
+@keyframes manga-drift {
+  0% { background-position: 0 0; }
+  100% { background-position: 300px 300px; }
+}
+
+:root[data-theme="manga"] .bloom-verde {
+  filter: blur(100px) contrast(1.5);
+  mix-blend-mode: multiply;
+  opacity: calc(var(--bloom-opacity) * 2);
+}
+
+:root[data-theme="manga"] .rounded-xl[class*="bg-card"]:not([data-slot="dialog-content"]),
+:root[data-theme="manga"] [class*="bg-card\/"]:not([data-slot="dialog-content"]) {
+  border-radius: 0 !important;
+  border: 2.5px solid #0a0a0a !important;
+  box-shadow: 5px 5px 0 #0a0a0a;
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+  position: relative;
+}
+
+/* Exceção para dialogs - não aplicar estilo mangá */
+:root[data-theme="manga"] [data-slot="dialog-content"] {
+  border-radius: 0.75rem !important;
+  border: 1px solid var(--border) !important;
+  box-shadow: var(--shadow-lg) !important;
+  margin: 0 !important;
+  z-index: 50 !important;
+  border-width: 1px !important;
+}
+
+:root[data-theme="manga"] [data-slot="dialog-overlay"] {
+  background: rgba(0, 0, 0, 0.5) !important;
+}
+
+:root[data-theme="manga"] [data-slot="dialog-close"] {
+  border-radius: 0 !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+:root[data-theme="manga"] .rounded-xl[class*="bg-card"]:not([data-slot="dialog-content"]):hover,
+:root[data-theme="manga"] [class*="bg-card\/"]:not([data-slot="dialog-content"]):hover {
+  box-shadow: 7px 7px 0 #0a0a0a;
+  transform: translate(-1px, -1px);
+}
+
+:root[data-theme="manga"] .rounded-xl[class*="bg-card"]:not([data-slot="dialog-content"])::before,
+:root[data-theme="manga"] [class*="bg-card\/"]:not([data-slot="dialog-content"])::before {
+  content: "";
+  position: absolute;
+  top: -7px;
+  left: 28px;
+  width: 56px;
+  height: 14px;
+  background:
+    repeating-linear-gradient(
+      45deg,
+      #0a0a0a 0 3px,
+      transparent 3px 7px
+    ),
+    #ece5d3;
+  transform: rotate(-3.5deg);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.18);
+  opacity: 0.85;
+  pointer-events: none;
+  z-index: 2;
+}
+
+:root[data-theme="manga"] .rounded-xl[class*="bg-card"]:not([data-slot="dialog-content"])::after,
+:root[data-theme="manga"] [class*="bg-card\/"]:not([data-slot="dialog-content"])::after {
+  content: "";
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  width: 11px;
+  height: 11px;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 14 14' fill='none'><path d='M7 0 L7.8 5.2 L13 6 L7.8 6.8 L7 14 L6.2 6.8 L1 6 L6.2 5.2 Z' fill='%230a0a0a'/></svg>");
+  background-size: contain;
+  background-repeat: no-repeat;
+  pointer-events: none;
+  opacity: 0.45;
+  z-index: 1;
+}
+
+:root[data-theme="manga"] [data-slot="sidebar"],
+:root[data-theme="manga"] aside[data-sidebar] {
+  border-right: 2px solid #0a0a0a !important;
+  box-shadow:
+    6px 0 0 -4px #0a0a0a,
+    inset -8px 0 0 -6px #0a0a0a;
+}
+
+:root[data-theme="manga"] button[class*="bg-primary"],
+:root[data-theme="manga"] button[class*="bg-accent"]:not([class*="bg-accent-"]),
+:root[data-theme="manga"] button[class*="bg-destructive"],
+:root[data-theme="manga"] [role="button"][class*="bg-primary"] {
+  border-radius: 0 !important;
+  border: 2px solid #0a0a0a !important;
+  box-shadow: 4px 4px 0 #0a0a0a;
+  font-weight: 800 !important;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  transition: transform 0.08s ease-out, box-shadow 0.08s ease-out;
+  position: relative;
+}
+
+:root[data-theme="manga"] button[class*="bg-primary"]:hover:not(:disabled),
+:root[data-theme="manga"] button[class*="bg-accent"]:not([class*="bg-accent-"]):hover:not(:disabled),
+:root[data-theme="manga"] button[class*="bg-destructive"]:hover:not(:disabled) {
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0 #0a0a0a;
+}
+
+:root[data-theme="manga"] button[class*="bg-primary"]:active:not(:disabled),
+:root[data-theme="manga"] button[class*="bg-accent"]:not([class*="bg-accent-"]):active:not(:disabled),
+:root[data-theme="manga"] button[class*="bg-destructive"]:active:not(:disabled) {
+  transform: translate(4px, 4px);
+  box-shadow: 0 0 0 #0a0a0a;
+}
+
+:root[data-theme="manga"] button[class*="border-"]:not([class*="bg-primary"]):not([class*="bg-accent"]):not([class*="bg-destructive"]) {
+  border-radius: 0 !important;
+  border-width: 2px !important;
+  border-color: #0a0a0a !important;
+  transition: background-color 0.1s ease, color 0.1s ease;
+}
+
+:root[data-theme="manga"] button[class*="border-"]:not([class*="bg-primary"]):not([class*="bg-accent"]):not([class*="bg-destructive"]):hover:not(:disabled) {
+  background-color: #0a0a0a !important;
+  color: #ffffff !important;
+}
+
+:root[data-theme="manga"] input:not([type="checkbox"]):not([type="radio"]):not([type="range"]),
+:root[data-theme="manga"] textarea,
+:root[data-theme="manga"] select {
+  border-radius: 0 !important;
+  border: 2px solid #0a0a0a !important;
+  transition: box-shadow 0.1s ease, transform 0.1s ease;
+}
+
+:root[data-theme="manga"] input:focus:not([type="checkbox"]):not([type="radio"]):not([type="range"]),
+:root[data-theme="manga"] textarea:focus,
+:root[data-theme="manga"] select:focus {
+  outline: none !important;
+  transform: translate(-1px, -1px);
+  box-shadow: 3px 3px 0 #0a0a0a !important;
+}
+
+:root[data-theme="manga"] h1,
+:root[data-theme="manga"] h2,
+:root[data-theme="manga"] h3 {
+  font-weight: 900;
+  letter-spacing: -0.025em;
+}
+
+:root[data-theme="manga"] .text-2xl,
+:root[data-theme="manga"] .text-3xl,
+:root[data-theme="manga"] .text-4xl,
+:root[data-theme="manga"] .text-5xl {
+  font-weight: 900;
+}
+
+:root[data-theme="manga"] p[class*="uppercase"][class*="text-xs"],
+:root[data-theme="manga"] span[class*="uppercase"][class*="text-xs"],
+:root[data-theme="manga"] label[class*="uppercase"][class*="text-xs"],
+:root[data-theme="manga"] div[class*="uppercase"][class*="text-xs"] {
+  font-weight: 800 !important;
+  letter-spacing: 0.14em !important;
+  position: relative;
+  padding-left: 16px;
+}
+
+:root[data-theme="manga"] p[class*="uppercase"][class*="text-xs"]::before,
+:root[data-theme="manga"] span[class*="uppercase"][class*="text-xs"]::before,
+:root[data-theme="manga"] label[class*="uppercase"][class*="text-xs"]::before,
+:root[data-theme="manga"] div[class*="uppercase"][class*="text-xs"]::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 50%;
+  width: 10px;
+  height: 3px;
+  background: #0a0a0a;
+  transform: translateY(-50%);
+}
+
+:root[data-theme="manga"] ::selection {
+  background: #0a0a0a;
+  color: #f5f1e8;
+}
+
+:root[data-theme="manga"] hr,
+:root[data-theme="manga"] [role="separator"] {
+  background: repeating-linear-gradient(
+    90deg,
+    #0a0a0a 0px,
+    #0a0a0a 6px,
+    transparent 6px,
+    transparent 10px
+  );
+  border: none;
+  height: 2px;
+}
+
+:root[data-theme="manga"] ::-webkit-scrollbar {
+  width: 12px;
+}
+:root[data-theme="manga"] ::-webkit-scrollbar-track {
+  background: transparent;
+  border-left: 2px solid #0a0a0a;
+}
+:root[data-theme="manga"] ::-webkit-scrollbar-thumb {
+  background: #0a0a0a;
+  border-radius: 0;
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+:root[data-theme="manga"] ::-webkit-scrollbar-thumb:hover {
+  background: #333333;
+  background-clip: padding-box;
+}
+
+:root[data-theme="manga"] [class*="rounded-full"]:not(img):not([class*="bg-card"]):not(button) {
+  border-radius: 0 !important;
+}
+
+:root[data-theme="manga"] img[class*="rounded-full"],
+:root[data-theme="manga"] [class*="rounded-full"] img {
+  border: 2px solid #0a0a0a;
+}
+
+/* Switch e checkbox no tema manga - visual claro e distinto */
+:root[data-theme="manga"] [role="switch"] {
+  border-radius: 4px !important;
+  border: 3px solid #0a0a0a !important;
+  width: 56px !important;
+  height: 32px !important;
+  transition: all 0.25s ease !important;
+  position: relative !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  padding: 2px !important;
+  box-sizing: border-box !important;
+}
+
+:root[data-theme="manga"] [role="switch"][data-state="unchecked"] {
+  background: #f5f5f5 !important;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2) !important;
+}
+
+:root[data-theme="manga"] [role="switch"][data-state="checked"] {
+  background: #00cc6a !important;
+  box-shadow: 0 0 20px rgba(0, 204, 106, 0.9), inset 0 2px 4px rgba(255,255,255,0.3) !important;
+}
+
+:root[data-theme="manga"] [role="switch"] [data-slot="switch-thumb"] {
+  width: 24px !important;
+  height: 24px !important;
+  background: #ffffff !important;
+  border: 2px solid #0a0a0a !important;
+  border-radius: 2px !important;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.3) !important;
+  transition: all 0.25s ease !important;
+  position: relative !important;
+}
+
+:root[data-theme="manga"] [role="switch"][data-state="unchecked"] [data-slot="switch-thumb"] {
+  transform: translateX(2px) !important;
+}
+
+:root[data-theme="manga"] [role="switch"][data-state="unchecked"] [data-slot="switch-thumb"]::after {
+  content: "";
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  background: #0a0a0a;
+  border-radius: 1px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+:root[data-theme="manga"] [role="switch"][data-state="checked"] [data-slot="switch-thumb"] {
+  transform: translateX(26px) !important;
+  background: #000000 !important;
+  box-shadow: 0 0 12px rgba(0, 204, 106, 0.9), 0 2px 6px rgba(0,0,0,0.4) !important;
+}
+
+:root[data-theme="manga"] [role="switch"][data-state="checked"] [data-slot="switch-thumb"]::after {
+  content: "";
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background: #00cc6a;
+  border-radius: 1px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  box-shadow: 0 0 6px rgba(0, 204, 106, 0.8);
+}
+
+/* ═══ Tema Neo-Brutalism Soft — pastel cremoso, bordas grossas, sombras sólidas ═══ */
+
+:root[data-theme="neo-brutalism"] .theme-bg-overlay {
+  animation: nb-drift 80s linear infinite;
+}
+
+@keyframes nb-drift {
+  0% { background-position: 0 0; }
+  100% { background-position: 240px 240px; }
+}
+
+:root[data-theme="neo-brutalism"] .bloom-verde {
+  filter: blur(140px);
+  mix-blend-mode: multiply;
+  opacity: calc(var(--bloom-opacity) * 1.3);
+}
+
+/* Cards com bordas grossas + sombra sólida offset */
+:root[data-theme="neo-brutalism"] .rounded-xl[class*="bg-card"]:not([data-slot="dialog-content"]):not([data-slot="popover-content"]),
+:root[data-theme="neo-brutalism"] [class*="bg-card\/"]:not([data-slot="dialog-content"]):not([data-slot="popover-content"]) {
+  border-radius: 10px !important;
+  border: 2.5px solid #1a1a1a !important;
+  box-shadow: 5px 5px 0 #1a1a1a;
+  transition: box-shadow 0.18s ease, transform 0.18s ease;
+}
+
+:root[data-theme="neo-brutalism"] .rounded-xl[class*="bg-card"]:not([data-slot="dialog-content"]):not([data-slot="popover-content"]):hover,
+:root[data-theme="neo-brutalism"] [class*="bg-card\/"]:not([data-slot="dialog-content"]):not([data-slot="popover-content"]):hover {
+  box-shadow: 7px 7px 0 #1a1a1a;
+  transform: translate(-1px, -1px);
+}
+
+/* Dialog mantém visual mais conservador */
+:root[data-theme="neo-brutalism"] [data-slot="dialog-content"] {
+  border-radius: 14px !important;
+  border: 2.5px solid #1a1a1a !important;
+  box-shadow: 8px 8px 0 #1a1a1a !important;
+}
+
+:root[data-theme="neo-brutalism"] [data-slot="dialog-overlay"] {
+  background: rgba(26, 26, 26, 0.35) !important;
+}
+
+:root[data-theme="neo-brutalism"] [data-slot="popover-content"] {
+  border-radius: 10px !important;
+  border: 2px solid #1a1a1a !important;
+  box-shadow: 4px 4px 0 #1a1a1a !important;
+}
+
+/* Sidebar com borda direita marcante */
+:root[data-theme="neo-brutalism"] [data-slot="sidebar"],
+:root[data-theme="neo-brutalism"] aside[data-sidebar] {
+  border-right: 2.5px solid #1a1a1a !important;
+}
+
+/* Botões primary/accent/destructive — efeito press característico */
+:root[data-theme="neo-brutalism"] button[class*="bg-primary"],
+:root[data-theme="neo-brutalism"] button[class*="bg-accent"]:not([class*="bg-accent-"]),
+:root[data-theme="neo-brutalism"] button[class*="bg-destructive"],
+:root[data-theme="neo-brutalism"] [role="button"][class*="bg-primary"] {
+  border-radius: 8px !important;
+  border: 2px solid #1a1a1a !important;
+  box-shadow: 3px 3px 0 #1a1a1a;
+  font-weight: 700 !important;
+  transition: transform 0.1s ease-out, box-shadow 0.1s ease-out;
+}
+
+:root[data-theme="neo-brutalism"] button[class*="bg-primary"]:hover:not(:disabled),
+:root[data-theme="neo-brutalism"] button[class*="bg-accent"]:not([class*="bg-accent-"]):hover:not(:disabled),
+:root[data-theme="neo-brutalism"] button[class*="bg-destructive"]:hover:not(:disabled) {
+  transform: translate(-1.5px, -1.5px);
+  box-shadow: 5px 5px 0 #1a1a1a;
+}
+
+:root[data-theme="neo-brutalism"] button[class*="bg-primary"]:active:not(:disabled),
+:root[data-theme="neo-brutalism"] button[class*="bg-accent"]:not([class*="bg-accent-"]):active:not(:disabled),
+:root[data-theme="neo-brutalism"] button[class*="bg-destructive"]:active:not(:disabled) {
+  transform: translate(3px, 3px);
+  box-shadow: 0 0 0 #1a1a1a;
+}
+
+/* Botões secundários (com borda mas sem fundo colorido) */
+:root[data-theme="neo-brutalism"] button[class*="border-border"]:not([class*="bg-primary"]):not([class*="bg-accent"]):not([class*="bg-destructive"]),
+:root[data-theme="neo-brutalism"] button[class*="border-input"]:not([class*="bg-primary"]):not([class*="bg-accent"]):not([class*="bg-destructive"]) {
+  border-radius: 8px !important;
+  border-width: 2px !important;
+  border-color: #1a1a1a !important;
+  transition: transform 0.1s ease, box-shadow 0.1s ease, background-color 0.1s ease;
+}
+
+:root[data-theme="neo-brutalism"] button[class*="border-border"]:not([class*="bg-primary"]):not([class*="bg-accent"]):not([class*="bg-destructive"]):hover:not(:disabled),
+:root[data-theme="neo-brutalism"] button[class*="border-input"]:not([class*="bg-primary"]):not([class*="bg-accent"]):not([class*="bg-destructive"]):hover:not(:disabled) {
+  transform: translate(-1px, -1px);
+  box-shadow: 3px 3px 0 #1a1a1a;
+}
+
+/* Inputs / textarea / select */
+:root[data-theme="neo-brutalism"] input:not([type="checkbox"]):not([type="radio"]):not([type="range"]),
+:root[data-theme="neo-brutalism"] textarea,
+:root[data-theme="neo-brutalism"] select {
+  border-radius: 8px !important;
+  border: 2px solid #1a1a1a !important;
+  background-color: #ffffff !important;
+  transition: box-shadow 0.12s ease, transform 0.12s ease;
+}
+
+:root[data-theme="neo-brutalism"] input:focus:not([type="checkbox"]):not([type="radio"]):not([type="range"]),
+:root[data-theme="neo-brutalism"] textarea:focus,
+:root[data-theme="neo-brutalism"] select:focus {
+  outline: none !important;
+  transform: translate(-1.5px, -1.5px);
+  box-shadow: 3px 3px 0 #1a1a1a !important;
+}
+
+/* Tipografia mais encorpada nos títulos */
+:root[data-theme="neo-brutalism"] h1,
+:root[data-theme="neo-brutalism"] h2,
+:root[data-theme="neo-brutalism"] h3 {
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+:root[data-theme="neo-brutalism"] .text-2xl,
+:root[data-theme="neo-brutalism"] .text-3xl,
+:root[data-theme="neo-brutalism"] .text-4xl,
+:root[data-theme="neo-brutalism"] .text-5xl {
+  font-weight: 800;
+}
+
+:root[data-theme="neo-brutalism"] ::selection {
+  background: #1a1a1a;
+  color: #fff4e6;
+}
+
+/* Scrollbar chunky */
+:root[data-theme="neo-brutalism"] ::-webkit-scrollbar {
+  width: 12px;
+}
+:root[data-theme="neo-brutalism"] ::-webkit-scrollbar-track {
+  background: #ffe5c2;
+  border-left: 2px solid #1a1a1a;
+}
+:root[data-theme="neo-brutalism"] ::-webkit-scrollbar-thumb {
+  background: #1a1a1a;
+  border-radius: 4px;
+  border: 2px solid #ffe5c2;
+  background-clip: padding-box;
+}
+:root[data-theme="neo-brutalism"] ::-webkit-scrollbar-thumb:hover {
+  background: #3a3a3a;
+  background-clip: padding-box;
+}
+
+/* Avatars / imagens redondas ganham borda preta */
+:root[data-theme="neo-brutalism"] img[class*="rounded-full"],
+:root[data-theme="neo-brutalism"] [class*="rounded-full"] > img {
+  border: 2px solid #1a1a1a;
+}
+
+/* Switch chunky com bordas marcadas */
+:root[data-theme="neo-brutalism"] [role="switch"] {
+  border-radius: 999px !important;
+  border: 2.5px solid #1a1a1a !important;
+  width: 52px !important;
+  height: 30px !important;
+  padding: 2px !important;
+  box-sizing: border-box !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  transition: background-color 0.18s ease, box-shadow 0.18s ease !important;
+  position: relative !important;
+}
+
+:root[data-theme="neo-brutalism"] [role="switch"][data-state="unchecked"] {
+  background: #ffffff !important;
+  box-shadow: 2px 2px 0 #1a1a1a !important;
+}
+
+:root[data-theme="neo-brutalism"] [role="switch"][data-state="checked"] {
+  background: #ff8fa3 !important;
+  box-shadow: 2px 2px 0 #1a1a1a !important;
+}
+
+:root[data-theme="neo-brutalism"] [role="switch"] [data-slot="switch-thumb"] {
+  width: 20px !important;
+  height: 20px !important;
+  background: #ffffff !important;
+  border: 2px solid #1a1a1a !important;
+  border-radius: 999px !important;
+  box-shadow: 1px 1px 0 #1a1a1a !important;
+  transition: transform 0.2s ease !important;
+}
+
+:root[data-theme="neo-brutalism"] [role="switch"][data-state="unchecked"] [data-slot="switch-thumb"] {
+  transform: translateX(0) !important;
+}
+
+:root[data-theme="neo-brutalism"] [role="switch"][data-state="checked"] [data-slot="switch-thumb"] {
+  transform: translateX(22px) !important;
+}
+
+/* Badges e separadores */
+:root[data-theme="neo-brutalism"] hr,
+:root[data-theme="neo-brutalism"] [role="separator"] {
+  background: #1a1a1a;
+  border: none;
+  height: 2px;
+  opacity: 0.6;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   Tema Bob Esponja — "Fundo do Mar"
+   Amarelo esponja, contornos de desenho, poros e bolhas subindo
+   ═══════════════════════════════════════════════════════════════ */
+
+/* Watermark do Bob no canto superior direito */
+:root[data-theme="spongebob"] .theme-bg-overlay {
+  background-position: right -30px top -10px;
+}
+
+/* Bolhas subindo — reaproveita os blobs de bloom como bolhas do mar */
+:root[data-theme="spongebob"] .bloom-verde {
+  filter: none !important;
+  border-radius: 50% !important;
+  background: radial-gradient(circle at 34% 30%,
+      rgba(255, 255, 255, 0.95) 0%,
+      rgba(255, 255, 255, 0.35) 16%,
+      rgba(178, 231, 244, 0.14) 42%,
+      transparent 60%) !important;
+  border: 2px solid rgba(34, 167, 224, 0.30) !important;
+  box-shadow: inset -6px -9px 16px rgba(34, 167, 224, 0.14),
+              0 0 14px rgba(255, 255, 255, 0.25) !important;
+  opacity: 0.6 !important;
+  top: auto !important;
+  right: auto !important;
+}
+
+:root[data-theme="spongebob"] .bloom-1 { width: 120px !important; height: 120px !important; left: 8%;  bottom: -160px !important; animation: sb-rise 15s linear infinite !important; }
+:root[data-theme="spongebob"] .bloom-2 { width: 70px  !important; height: 70px  !important; left: 26%; bottom: -160px !important; animation: sb-rise 11s linear infinite 2s   !important; }
+:root[data-theme="spongebob"] .bloom-3 { width: 150px !important; height: 150px !important; left: 48%; bottom: -160px !important; animation: sb-rise 19s linear infinite 1s   !important; }
+:root[data-theme="spongebob"] .bloom-4 { width: 55px  !important; height: 55px  !important; left: 68%; bottom: -160px !important; animation: sb-rise 9s  linear infinite 3s   !important; }
+:root[data-theme="spongebob"] .bloom-5 { width: 95px  !important; height: 95px  !important; left: 86%; bottom: -160px !important; animation: sb-rise 13s linear infinite 0.5s !important; }
+
+@keyframes sb-rise {
+  0%   { transform: translateY(0) translateX(0) scale(0.75); opacity: 0; }
+  10%  { opacity: 0.6; }
+  50%  { transform: translateY(-52vh) translateX(24px) scale(1); }
+  90%  { opacity: 0.6; }
+  100% { transform: translateY(-108vh) translateX(-14px) scale(1.12); opacity: 0; }
+}
+
+/* Poros de esponja nos cards */
+:root[data-theme="spongebob"] .rounded-xl[class*="bg-card"]:not([data-slot="dialog-content"]),
+:root[data-theme="spongebob"] [class*="bg-card\/"]:not([data-slot="dialog-content"]) {
+  background-image: radial-gradient(circle at center, rgba(184, 187, 48, 0.11) 1.4px, transparent 1.7px);
+  background-size: 20px 20px;
+}
+
+/* Botões primary — amarelo esponja com contorno de desenho e efeito bounce */
+:root[data-theme="spongebob"] button[class*="bg-primary"],
+:root[data-theme="spongebob"] [role="button"][class*="bg-primary"] {
+  border: 2.5px solid #211d0c !important;
+  border-radius: 14px !important;
+  box-shadow: 0 4px 0 #c99e00, 0 6px 12px rgba(33, 29, 12, 0.22) !important;
+  font-weight: 800 !important;
+  transition: transform 0.13s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.13s ease !important;
+}
+:root[data-theme="spongebob"] button[class*="bg-primary"]:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 0 #c99e00, 0 10px 16px rgba(33, 29, 12, 0.26) !important;
+}
+:root[data-theme="spongebob"] button[class*="bg-primary"]:active:not(:disabled) {
+  transform: translateY(3px);
+  box-shadow: 0 1px 0 #c99e00, 0 2px 6px rgba(33, 29, 12, 0.2) !important;
+}
+
+/* Botões destructive — vermelho da gravata do Bob */
+:root[data-theme="spongebob"] button[class*="bg-destructive"] {
+  border: 2.5px solid #211d0c !important;
+  border-radius: 14px !important;
+  box-shadow: 0 4px 0 #b93425, 0 6px 12px rgba(33, 29, 12, 0.22) !important;
+  font-weight: 800 !important;
+  transition: transform 0.13s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.13s ease !important;
+}
+:root[data-theme="spongebob"] button[class*="bg-destructive"]:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 0 #b93425, 0 10px 16px rgba(33, 29, 12, 0.26) !important;
+}
+:root[data-theme="spongebob"] button[class*="bg-destructive"]:active:not(:disabled) {
+  transform: translateY(3px);
+  box-shadow: 0 1px 0 #b93425, 0 2px 6px rgba(33, 29, 12, 0.2) !important;
+}
+
+/* Foco azul (olhos do Bob) em inputs */
+:root[data-theme="spongebob"] input:focus:not([type="checkbox"]):not([type="radio"]):not([type="range"]),
+:root[data-theme="spongebob"] textarea:focus,
+:root[data-theme="spongebob"] select:focus {
+  outline: none !important;
+  border-color: #22a7e0 !important;
+  box-shadow: 0 0 0 3px rgba(34, 167, 224, 0.25) !important;
+}
+
+/* Sidebar com borda de desenho */
+:root[data-theme="spongebob"] [data-slot="sidebar"],
+:root[data-theme="spongebob"] aside[data-sidebar] {
+  border-right: 2px solid rgba(33, 29, 12, 0.22) !important;
+}
+
+/* Títulos mais gordinhos e brincalhões */
+:root[data-theme="spongebob"] h1,
+:root[data-theme="spongebob"] h2,
+:root[data-theme="spongebob"] h3 {
+  font-weight: 800;
+  letter-spacing: -0.01em;
+}
+
+/* Seleção de texto */
+:root[data-theme="spongebob"] ::selection {
+  background: #ffd21a;
+  color: #211d0c;
+}
+
+/* Scrollbar amarela arredondada */
+:root[data-theme="spongebob"] ::-webkit-scrollbar-thumb {
+  border-radius: 999px;
+  border: 2px solid #c2e9f0;
+  background-clip: padding-box;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   Tema BRUNNO ✏️ — rabisco minimalista e ridículo
+   Papel off-white, tinta preta, Comic Sans, bordas tortas à mão.
+   ═══════════════════════════════════════════════════════════════ */
+
+@keyframes brunno-wiggle {
+  0%, 100% { transform: rotate(0deg); }
+  25%      { transform: rotate(-1.4deg); }
+  75%      { transform: rotate(1.4deg); }
+}
+
+/* Comic Sans em TUDO — o coração da piada */
+:root[data-theme="brunno"],
+:root[data-theme="brunno"] * {
+  font-family: "Comic Sans MS", "Comic Sans", "Chalkboard SE", "Comic Neue", cursive !important;
+  letter-spacing: 0 !important;
+}
+
+/* Papel pontilhado de caderninho no fundo */
+:root[data-theme="brunno"] body {
+  background-image: radial-gradient(rgba(46, 43, 40, 0.09) 1.1px, transparent 1.2px);
+  background-size: 22px 22px;
+}
+
+/* Sem glow colorido — bloom quase apagado pra manter o minimalismo */
+:root[data-theme="brunno"] .bloom-verde {
+  opacity: 0.04 !important;
+  filter: blur(120px) grayscale(1) !important;
+}
+
+/* Cards — bordas tortas desenhadas à mão, levemente caídos */
+:root[data-theme="brunno"] .rounded-xl[class*="bg-card"]:not([data-slot="dialog-content"]):not([data-slot="popover-content"]),
+:root[data-theme="brunno"] [class*="bg-card\/"]:not([data-slot="dialog-content"]):not([data-slot="popover-content"]) {
+  border: 2px solid #2e2b28 !important;
+  border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px !important;
+  box-shadow: 3px 3px 0 rgba(46, 43, 40, 0.14) !important;
+  transition: transform 0.18s ease, box-shadow 0.18s ease !important;
+}
+/* Alterna o formato torto e a inclinação pra parecer feito na mão */
+:root[data-theme="brunno"] .rounded-xl[class*="bg-card"]:nth-of-type(even):not([data-slot="dialog-content"]):not([data-slot="popover-content"]),
+:root[data-theme="brunno"] [class*="bg-card\/"]:nth-of-type(even):not([data-slot="dialog-content"]):not([data-slot="popover-content"]) {
+  border-radius: 15px 225px 15px 255px / 225px 15px 255px 15px !important;
+  transform: rotate(-0.45deg);
+}
+:root[data-theme="brunno"] .rounded-xl[class*="bg-card"]:nth-of-type(odd):not([data-slot="dialog-content"]):not([data-slot="popover-content"]),
+:root[data-theme="brunno"] [class*="bg-card\/"]:nth-of-type(odd):not([data-slot="dialog-content"]):not([data-slot="popover-content"]) {
+  transform: rotate(0.4deg);
+}
+:root[data-theme="brunno"] .rounded-xl[class*="bg-card"]:not([data-slot="dialog-content"]):not([data-slot="popover-content"]):hover,
+:root[data-theme="brunno"] [class*="bg-card\/"]:not([data-slot="dialog-content"]):not([data-slot="popover-content"]):hover {
+  transform: rotate(0deg) translateY(-2px);
+  box-shadow: 5px 5px 0 rgba(46, 43, 40, 0.18) !important;
+}
+
+/* Dialog / popover — também tortinhos, mas de leve */
+:root[data-theme="brunno"] [data-slot="dialog-content"] {
+  border: 2px solid #2e2b28 !important;
+  border-radius: 30px 8px 30px 8px / 8px 30px 8px 30px !important;
+  box-shadow: 6px 6px 0 rgba(46, 43, 40, 0.16) !important;
+}
+:root[data-theme="brunno"] [data-slot="dialog-overlay"] {
+  background: rgba(46, 43, 40, 0.35) !important;
+}
+:root[data-theme="brunno"] [data-slot="popover-content"] {
+  border: 2px solid #2e2b28 !important;
+  border-radius: 18px 6px 18px 6px / 6px 18px 6px 18px !important;
+  box-shadow: 4px 4px 0 rgba(46, 43, 40, 0.16) !important;
+}
+
+/* Sidebar — divisória tracejada, tipo desenho de caderno */
+:root[data-theme="brunno"] aside {
+  border-right: 2px dashed #2e2b28 !important;
+}
+
+/* Botões primary/accent/destructive — bordas tortas + wiggle bobo no hover */
+:root[data-theme="brunno"] button[class*="bg-primary"],
+:root[data-theme="brunno"] button[class*="bg-accent"]:not([class*="bg-accent-"]),
+:root[data-theme="brunno"] button[class*="bg-destructive"],
+:root[data-theme="brunno"] [role="button"][class*="bg-primary"] {
+  border: 2px solid #2e2b28 !important;
+  border-radius: 225px 12px 225px 12px / 12px 225px 12px 225px !important;
+  box-shadow: 2px 2px 0 rgba(46, 43, 40, 0.28) !important;
+  font-weight: 700 !important;
+  transition: box-shadow 0.12s ease !important;
+}
+:root[data-theme="brunno"] button[class*="bg-primary"]:hover:not(:disabled),
+:root[data-theme="brunno"] button[class*="bg-accent"]:not([class*="bg-accent-"]):hover:not(:disabled),
+:root[data-theme="brunno"] button[class*="bg-destructive"]:hover:not(:disabled),
+:root[data-theme="brunno"] [role="button"][class*="bg-primary"]:hover:not(:disabled) {
+  animation: brunno-wiggle 0.4s ease-in-out;
+  box-shadow: 4px 4px 0 rgba(46, 43, 40, 0.3) !important;
+}
+:root[data-theme="brunno"] button[class*="bg-primary"]:active:not(:disabled),
+:root[data-theme="brunno"] button[class*="bg-accent"]:not([class*="bg-accent-"]):active:not(:disabled),
+:root[data-theme="brunno"] button[class*="bg-destructive"]:active:not(:disabled) {
+  box-shadow: 0 0 0 rgba(46, 43, 40, 0.3) !important;
+  transform: translate(2px, 2px);
+}
+
+/* Botões com borda (secundários) — contorno torto que preenche no hover */
+:root[data-theme="brunno"] button[class*="border-border"]:not([class*="bg-primary"]):not([class*="bg-accent"]):not([class*="bg-destructive"]),
+:root[data-theme="brunno"] button[class*="border-input"]:not([class*="bg-primary"]):not([class*="bg-accent"]):not([class*="bg-destructive"]) {
+  border: 2px solid #2e2b28 !important;
+  border-radius: 18px 6px 18px 6px / 6px 18px 6px 18px !important;
+  transition: background-color 0.12s ease, color 0.12s ease;
+}
+:root[data-theme="brunno"] button[class*="border-border"]:not([class*="bg-primary"]):not([class*="bg-accent"]):not([class*="bg-destructive"]):hover:not(:disabled),
+:root[data-theme="brunno"] button[class*="border-input"]:not([class*="bg-primary"]):not([class*="bg-accent"]):not([class*="bg-destructive"]):hover:not(:disabled) {
+  background-color: #2e2b28 !important;
+  color: #fffdf8 !important;
+}
+
+/* Inputs — retângulos tortos desenhados à mão */
+:root[data-theme="brunno"] input:not([type="checkbox"]):not([type="radio"]):not([type="range"]),
+:root[data-theme="brunno"] textarea,
+:root[data-theme="brunno"] select {
+  border: 2px solid #2e2b28 !important;
+  border-radius: 18px 8px 18px 8px / 8px 18px 8px 18px !important;
+  transition: box-shadow 0.12s ease;
+}
+:root[data-theme="brunno"] input:focus:not([type="checkbox"]):not([type="radio"]):not([type="range"]),
+:root[data-theme="brunno"] textarea:focus,
+:root[data-theme="brunno"] select:focus {
+  outline: none !important;
+  box-shadow: 3px 3px 0 rgba(46, 43, 40, 0.2) !important;
+}
+
+/* Títulos — Comic Sans grosso com sublinhado ondulado */
+:root[data-theme="brunno"] h1,
+:root[data-theme="brunno"] h2,
+:root[data-theme="brunno"] h3 {
+  font-weight: 700 !important;
+  text-decoration: underline wavy #2e2b28;
+  text-decoration-thickness: 1.5px;
+  text-underline-offset: 5px;
+}
+
+/* Avatares e imagens redondas ganham contorno de caneta */
+:root[data-theme="brunno"] img[class*="rounded-full"],
+:root[data-theme="brunno"] [class*="rounded-full"] > img {
+  border: 2px solid #2e2b28;
+}
+
+/* Switch — caixinha torta desenhada à mão */
+:root[data-theme="brunno"] [role="switch"] {
+  border: 2px solid #2e2b28 !important;
+  border-radius: 12px 5px 12px 5px / 5px 12px 5px 12px !important;
+}
+
+/* Seleção de texto */
+:root[data-theme="brunno"] ::selection {
+  background: #2e2b28;
+  color: #fffdf8;
+}
+
+/* Separadores — linha tracejada de caderno */
+:root[data-theme="brunno"] hr,
+:root[data-theme="brunno"] [role="separator"] {
+  background: repeating-linear-gradient(90deg, #2e2b28 0 7px, transparent 7px 13px);
+  border: none;
+  height: 2px;
+  opacity: 0.6;
+}
+
+/* Scrollbar fininha e discreta */
+:root[data-theme="brunno"] ::-webkit-scrollbar {
+  width: 10px;
+}
+:root[data-theme="brunno"] ::-webkit-scrollbar-track {
+  background: transparent;
+}
+:root[data-theme="brunno"] ::-webkit-scrollbar-thumb {
+  background: #2e2b28;
+  border-radius: 999px;
+  border: 3px solid #f6f3ec;
+  background-clip: padding-box;
+}
+:root[data-theme="brunno"] ::-webkit-scrollbar-thumb:hover {
+  background: #4a453e;
+  background-clip: padding-box;
+}
