@@ -1,0 +1,92 @@
+appId: "com.davitools.app"
+productName: "DaviTools"
+copyright: "Copyright © 2026"
+directories:
+  output: "release"
+
+publish:
+  - provider: github
+    owner: dvzzrlk
+    repo: DaviTools
+    releaseType: release
+
+extraResources:
+  - from: scripts/uninstall-cleanup.ps1
+    to: uninstall-cleanup.ps1
+
+files:
+  - dist-electron/**/*
+  - dist-frontend/**/*
+  - public/**/*
+  - node_modules/**/*
+  - package.json
+  - "!src"
+  - "!server"
+  - "!electron"
+  - "!node_modules/@types"
+  - "!node_modules/typescript"
+  - "!node_modules/@tailwindcss"
+  - "!node_modules/tailwindcss"
+  - "!node_modules/postcss"
+  - "!node_modules/electron"
+  - "!node_modules/electron-builder"
+  - "!node_modules/concurrently"
+  - "!node_modules/wait-on"
+  - "!node_modules/app-builder-bin"
+  - "!node_modules/app-builder-lib"
+  - "!node_modules/7zip-bin"
+  - "!node_modules/lightningcss-win32-x64-msvc"
+  - "!node_modules/@img"
+  - "!node_modules/eslint"
+  - "!node_modules/eslint-*"
+  - "!node_modules/@eslint"
+  - "!node_modules/@electron"
+  - "!node_modules/react-dom"
+  - "!node_modules/vite"
+  - "!node_modules/@vitejs"
+  - "!node_modules/rolldown"
+  - "!node_modules/@rolldown"
+
+win:
+  target:
+    - target: nsis
+      arch:
+        - x64
+    - target: portable
+      arch:
+        - x64
+  icon: public/icon.ico
+
+nsis:
+  include: scripts/uninstaller.nsh
+  installerSidebar: build/installerSidebar.bmp
+  uninstallerSidebar: build/installerSidebar.bmp
+  oneClick: false
+  perMachine: true
+  allowToChangeInstallationDirectory: true
+  createDesktopShortcut: true
+  createStartMenuShortcut: true
+  shortcutName: "DaviTools"
+  uninstallDisplayName: "DaviTools"
+  deleteAppDataOnUninstall: true
+
+mac:
+  target:
+    - target: dmg
+      arch:
+        - x64
+        - arm64
+  icon: public/icon.icns
+
+linux:
+  target:
+    - target: AppImage
+      arch:
+        - x64
+  icon: public/icon.png
+
+asar: true
+asarUnpack:
+  - "node_modules/**/*.node"
+  - ".next/**"
+compression: store
